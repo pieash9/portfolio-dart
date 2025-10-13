@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/app_text_styles.dart';
 import 'package:portfolio/extensions.dart';
+import 'package:portfolio/l10n/app_localizations.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({super.key});
@@ -35,7 +35,12 @@ class AppMenus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [Text("Home"), Text("Courses"), Text("Blog"), Text("About Me")],
+      children: [
+        Text(context.texts.home),
+        Text(context.texts.courses),
+        Text(context.texts.blog),
+        Text(context.texts.aboutMe),
+      ],
     );
   }
 }
@@ -49,7 +54,7 @@ class LanguageToggle extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupMenuItem(child: Text("English"), value: "en"),
-          PopupMenuItem(child: Text("Spanish"), value: "es"),
+          PopupMenuItem(child: Text("فارسی"), value: "fa"),
         ];
       },
     );
