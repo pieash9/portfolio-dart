@@ -7,7 +7,8 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).appBarTheme.backgroundColor,
+      color: Colors.red,
+      height: context.insets.appBarHeight,
       padding: EdgeInsets.symmetric(horizontal: context.insets.padding),
       child: Row(
         children: [
