@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:portfolio/home_page.dart';
+import 'package:portfolio/style/app_theme.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
@@ -12,16 +13,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      localizationsDelegates: [
+    return MaterialApp(
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [Locale('en'), Locale('fa')],
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.dark,
+      supportedLocales: const [Locale('en'), Locale('fa')],
       // locale: Locale("fa"),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
