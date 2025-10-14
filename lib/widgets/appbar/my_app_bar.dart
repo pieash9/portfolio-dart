@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/app_text_styles.dart';
+import 'package:portfolio/constants/app_menu_list.dart';
 import 'package:portfolio/extensions.dart';
 import 'package:portfolio/style/app_size.dart';
 import 'package:portfolio/widgets/appbar/app_bar_drawer_icon.dart';
+import 'package:portfolio/widgets/language_switch.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({super.key});
@@ -11,7 +14,7 @@ class MyAppBar extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
       alignment: Alignment.center,
-      color: Colors.red,
+      color: context.theme.appBarTheme.backgroundColor,
       height: context.insets.appBarHeight,
       padding: EdgeInsets.symmetric(horizontal: context.insets.padding),
       child: ConstrainedBox(
@@ -20,9 +23,9 @@ class MyAppBar extends StatelessWidget {
           children: [
             AppLogo(),
             Spacer(),
-            if (context.isDesktop) AppMenus(),
+            if (context.isDesktop) LargeMenu(),
             Spacer(),
-            LanguageToggle(),
+            LanguageSwitch(),
             ThemeToggle(),
             if (!context.isDesktop) AppBarDrawerIcon(),
           ],
@@ -41,34 +44,58 @@ class AppLogo extends StatelessWidget {
   }
 }
 
-class AppMenus extends StatelessWidget {
-  const AppMenus({super.key});
+class LargeMenu extends StatelessWidget {
+  const LargeMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        Text(context.texts.home),
-        Text(context.texts.courses),
-        Text(context.texts.blog),
-        Text(context.texts.aboutMe),
-      ],
+      children: AppMenuList.getItems(context)
+          .map(
+            (e) => LargeAppBarMenuItem(
+              text: e.title,
+              isSelected: true,
+              onTap: () {},
+            ),
+          )
+          .toList(),
     );
   }
 }
 
-class LanguageToggle extends StatelessWidget {
-  const LanguageToggle({super.key});
+class LargeAppBarMenuItem extends StatelessWidget {
+  const LargeAppBarMenuItem({
+    super.key,
+    required this.text,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String text;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) {
-        return [
-          PopupMenuItem(child: Text("English"), value: "en"),
-          PopupMenuItem(child: Text("فارسی"), value: "fa"),
-        ];
-      },
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: Insets.med,
+          vertical: Insets.xs,
+        ),
+        // decoration: isSelected
+        //     ? BoxDecoration(
+        //         border: Border(
+        //           bottom: BorderSide(
+        //             width: 2,
+        //             color: context.theme.primaryColor,
+        //           ),
+        //         ),
+        //       )
+        //     : null,
+        child: Text(text, style: SmallTextStyles().bodyLgMedium),
+      ),
     );
   }
 }
